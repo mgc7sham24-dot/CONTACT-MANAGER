@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Contact</title>
+</head>
+
+<body>
+
+<h2>Add Contact</h2>
+
+<input type="text" id="name" placeholder="Name"><br><br>
+<input type="email" id="email" placeholder="Email"><br><br>
+<input type="text" id="phone" placeholder="Phone"><br><br>
+
+<button onclick="addContact()">Add Contact</button>
+
+<script>
+
+async function addContact(){
+
+const name = document.getElementById("name").value
+const email = document.getElementById("email").value
+const phone = document.getElementById("phone").value
+
+const token = localStorage.getItem("token")
+
+const res = await fetch("http://localhost:5000/add-contact",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer "+token
+},
+
+body: JSON.stringify({name,email,phone})
+
+})
+
+const data = await res.json()
+
+alert(data.message)
+
+}
+
+</script>
+
+</body>
+</html>
